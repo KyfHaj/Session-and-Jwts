@@ -1,6 +1,5 @@
 "use client"
 
-import React from "react"
 import {
   Card,
   CardHeader,
@@ -12,9 +11,13 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 
-export default function Component() {
+export default function SignIn() {
+  // const router = useRouter()
+
   const handleOnsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // This line prevents the browser from reloading the page when the form is submitted.
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     event.currentTarget.reset()
@@ -27,8 +30,11 @@ export default function Component() {
 
     try {
       const response = await axios.post("/api/sign-in", data)
+      // Test with Postman
       // const response = await axios.post("https://11d7259e-0d92-45e8-a068-e8ffc67f77a2.mock.pstmn.io/api/sign-in", data)
+
       console.log("Form submitted successfully:", response.data)
+      // if (response.data) router.push("/dashboard")
     } catch (error) {
       console.error("Error submitting form:", error)
     }
