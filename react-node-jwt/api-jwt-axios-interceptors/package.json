@@ -1,0 +1,25 @@
+{
+  "name": "api-jwt-axios-interceptors",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ky Ha",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
+    "eslint": "^8.47.0",
+    "@babel/runtime": "^7.22.10",
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "@babel/eslint-parser": "^7.22.10",
+    "@babel/node": "^7.22.10",
+    "@babel/plugin-transform-runtime": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "babel-plugin-module-resolver": "^5.0.0"
+  }
+}
