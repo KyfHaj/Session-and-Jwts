@@ -6,8 +6,11 @@ import FormLabel from "@mui/joy/FormLabel"
 import Input from "@mui/joy/Input"
 import Button from "@mui/joy/Button"
 import Link from "@mui/joy/Link"
-
+// import { API_ROOT } from "../../utils/constants"
+import { API_ROOT } from "../../utils/constants"
+import { toast } from "react-toastify"
 import "./LoginForm.css"
+import axios from "axios"
 
 export default function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,6 +22,14 @@ export default function Login() {
       password: formData.get("password") as string | null,
     }
     console.log("submit login: ", data)
+
+    try {
+      const res = await axios.post(`${API_ROOT}/v1/users/login`, data)
+      console.log(res.data)
+      toast.success(res.data?.message)
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || error?.message)
+    }
   }
 
   return (

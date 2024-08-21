@@ -5,6 +5,6 @@
   "presets": ["@babel/preset-env"],
   "plugins": [
     ["@babel/transform-runtime"],
-    ["module-resolver", { "alias": { "~": "./src" } }]
+    ["module-resolver", { "alias": { "@": "./src" } }]
   ]
 }
