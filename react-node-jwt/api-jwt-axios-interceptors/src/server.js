@@ -3,8 +3,8 @@ import cors from "cors"
 // const express = require('express')
 import cookieParser from "cookie-parser"
 // import { corsOptions } from "./config/corsOptions.js"
-import { APIs_V1 } from "./routes/v1/index.js"
 import { corsOptions } from "@/config/corsOptions.js"
+import { APIs_V1 } from "@/routes/v1/index.js"
 
 const app = express()
 
