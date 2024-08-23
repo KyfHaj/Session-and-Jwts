@@ -51,7 +51,7 @@ export default function Login() {
     try {
       const res = await axios.post(`${API_ROOT}/v1/users/login`, data)
       console.log(res.data)
-      toast.success(res.data?.message)
+      toast.success("Login API success!")
     } catch (error: any) {
       toast.error(error.response?.data?.message || error?.message)
     }

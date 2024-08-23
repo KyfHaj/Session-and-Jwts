@@ -11,7 +11,7 @@ const MockDataBase = {
 }
 
 const login = async (req, res) => {
-  console.log("request email: ", req.body.email)
+  console.log(process.env.REFRESH_TOKEN_SECRET_KEY)
   try {
     if (
       req.body.email !== MockDataBase.USER.email ||
@@ -40,7 +40,7 @@ const login = async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET_KEY,
       "14 days"
     )
-
+    
     // Trả về cookie và set http only, maxAge, secure
     res.cookie("accessToken", accessToken, {
       httpOnly: true,

@@ -1,0 +1,133 @@
+{
+  "hash": "16efc899",
+  "configHash": "56c0d463",
+  "lockfileHash": "91bc46bf",
+  "browserHash": "253f03a1",
+  "optimized": {
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "ddc7870b",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "56f96e10",
+      "needsInterop": false
+    },
+    "react-toastify": {
+      "src": "../../node_modules/react-toastify/dist/react-toastify.esm.mjs",
+      "file": "react-toastify.js",
+      "fileHash": "94dd509c",
+      "needsInterop": false
+    },
+    "@mui/joy/styles": {
+      "src": "../../node_modules/@mui/joy/styles/index.js",
+      "file": "@mui_joy_styles.js",
+      "fileHash": "08118045",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "d2ce0ed7",
+      "needsInterop": true
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "b5c2ac00",
+      "needsInterop": false
+    },
+    "@mui/joy/Sheet": {
+      "src": "../../node_modules/@mui/joy/Sheet/index.js",
+      "file": "@mui_joy_Sheet.js",
+      "fileHash": "4039f072",
+      "needsInterop": false
+    },
+    "@mui/joy/CssBaseline": {
+      "src": "../../node_modules/@mui/joy/CssBaseline/index.js",
+      "file": "@mui_joy_CssBaseline.js",
+      "fileHash": "3bcd845e",
+      "needsInterop": false
+    },
+    "@mui/joy/Typography": {
+      "src": "../../node_modules/@mui/joy/Typography/index.js",
+      "file": "@mui_joy_Typography.js",
+      "fileHash": "49c60191",
+      "needsInterop": false
+    },
+    "@mui/joy/FormControl": {
+      "src": "../../node_modules/@mui/joy/FormControl/index.js",
+      "file": "@mui_joy_FormControl.js",
+      "fileHash": "b56ff30a",
+      "needsInterop": false
+    },
+    "@mui/joy/FormLabel": {
+      "src": "../../node_modules/@mui/joy/FormLabel/index.js",
+      "file": "@mui_joy_FormLabel.js",
+      "fileHash": "3eecefdd",
+      "needsInterop": false
+    },
+    "@mui/joy/Input": {
+      "src": "../../node_modules/@mui/joy/Input/index.js",
+      "file": "@mui_joy_Input.js",
+      "fileHash": "0a480fb6",
+      "needsInterop": false
+    },
+    "@mui/joy/Button": {
+      "src": "../../node_modules/@mui/joy/Button/index.js",
+      "file": "@mui_joy_Button.js",
+      "fileHash": "9b212711",
+      "needsInterop": false
+    },
+    "@mui/joy/Link": {
+      "src": "../../node_modules/@mui/joy/Link/index.js",
+      "file": "@mui_joy_Link.js",
+      "fileHash": "f566ba2a",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-MJL6JNXO": {
+      "file": "chunk-MJL6JNXO.js"
+    },
+    "chunk-J7QGKKTA": {
+      "file": "chunk-J7QGKKTA.js"
+    },
+    "chunk-M2UN7ZVJ": {
+      "file": "chunk-M2UN7ZVJ.js"
+    },
+    "chunk-WVJ6VTNV": {
+      "file": "chunk-WVJ6VTNV.js"
+    },
+    "chunk-2JI22EPN": {
+      "file": "chunk-2JI22EPN.js"
+    },
+    "chunk-BEZRWDQM": {
+      "file": "chunk-BEZRWDQM.js"
+    },
+    "chunk-TNTPHDQH": {
+      "file": "chunk-TNTPHDQH.js"
+    },
+    "chunk-DHPY2BVN": {
+      "file": "chunk-DHPY2BVN.js"
+    },
+    "chunk-DBFFMRLV": {
+      "file": "chunk-DBFFMRLV.js"
+    },
+    "chunk-VMLG5I4F": {
+      "file": "chunk-VMLG5I4F.js"
+    },
+    "chunk-2KHBIA62": {
+      "file": "chunk-2KHBIA62.js"
+    },
+    "chunk-32E4H3EV": {
+      "file": "chunk-32E4H3EV.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}
