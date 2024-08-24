@@ -1,6 +1,4 @@
 import * as React from "react"
-import axios from "axios"
-import { toast } from "react-toastify"
 import { useColorScheme } from "@mui/joy/styles"
 import Sheet from "@mui/joy/Sheet"
 import CssBaseline from "@mui/joy/CssBaseline"
@@ -11,6 +9,8 @@ import Input from "@mui/joy/Input"
 import Button from "@mui/joy/Button"
 import Link from "@mui/joy/Link"
 import { API_ROOT } from "../../utils/constants"
+import authorizedAxiosInstance from "../../utils/authorizedAxios"
+import { useNavigate } from "react-router-dom"
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme()
@@ -38,6 +38,8 @@ function ModeToggle() {
 }
 
 export default function Login() {
+  const navigate = useNavigate()
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault() // prevent auto reload
     const formData = new FormData(event.currentTarget)
@@ -48,13 +50,16 @@ export default function Login() {
     }
     console.log("submit login: ", data)
 
-    try {
-      const res = await axios.post(`${API_ROOT}/v1/users/login`, data)
-      console.log(res.data)
-      toast.success("Login API success!")
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || error?.message)
-    }
+    const res = await authorizedAxiosInstance.post(
+      `${API_ROOT}/v1/users/login`,
+      data
+    )
+
+    // localStorage.setItem("accessToken", res.data.accessToken)
+    // localStorage.setItem("refreshToken", res.data.refreshToken)
+    // localStorage.setItem("userInfo", res.data.id)
+
+    navigate("/dashboard")
   }
 
   return (

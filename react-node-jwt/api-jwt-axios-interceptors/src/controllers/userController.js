@@ -32,6 +32,7 @@ const login = async (req, res) => {
     const accessToken = await JwtProvider.generateToken(
       userInfor,
       process.env.ACCESS_TOKEN_SECRET_KEY,
+      // 5
       "1h"
     )
 
@@ -40,7 +41,7 @@ const login = async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET_KEY,
       "14 days"
     )
-    
+
     // Trả về cookie và set http only, maxAge, secure
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
