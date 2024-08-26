@@ -39,7 +39,7 @@ const isAuthorized = async (req, res, next) => {
     }
     // Nếu token ko hợp lệ, thì đăng nhập lại
     res
-      .status(StatusCodes.NOT_ACCEPTABLE)
+      .status(StatusCodes.UNAUTHORIZED)
       .json({ message: "Unauthorized: (Token not verified)" })
   }
 }

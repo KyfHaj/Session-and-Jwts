@@ -55,9 +55,10 @@ export default function Login() {
       data
     )
 
+    localStorage.setItem("userInfo", res.data.id)
+
     // localStorage.setItem("accessToken", res.data.accessToken)
     // localStorage.setItem("refreshToken", res.data.refreshToken)
-    // localStorage.setItem("userInfo", res.data.id)
 
     navigate("/dashboard")
   }

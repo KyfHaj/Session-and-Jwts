@@ -32,8 +32,8 @@ const login = async (req, res) => {
     const accessToken = await JwtProvider.generateToken(
       userInfor,
       process.env.ACCESS_TOKEN_SECRET_KEY,
-      // 5
-      "1h"
+      5
+      // "1h"
     )
 
     const refreshToken = await JwtProvider.generateToken(
@@ -63,8 +63,19 @@ const login = async (req, res) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)
   }
 }
+
+const logout = async (req, res) => {
+  try {
+    res.clearCookie("accessToken")
+    res.clearCookie("refreshToken")
+    return res.status(StatusCodes.OK).json({ message: "logout" })
+  } catch {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)
+  }
+}
+
 export const userController = {
   login,
-  // logout,
+  logout,
   // refreshToken
 }

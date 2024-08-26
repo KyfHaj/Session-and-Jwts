@@ -1,4 +1,5 @@
 import axios from "axios"
+import { Navigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
 let authorizedAxiosInstance = axios.create()
@@ -32,17 +33,24 @@ authorizedAxiosInstance.defaults.withCredentials = true
 
 // Mỗi respone nhận về sẽ thêm vào 1 interceptor
 // Có thể ko dùng try catch khi call api mà xử lý ở đây
+
 authorizedAxiosInstance.interceptors.response.use(
-  // STATUS CODE: [200-299]
   (response) => {
     console.log(response.data)
     toast.success("Login API success!")
     return response
   },
-  // STATUS CODE ngoài [200-299]
   (error) => {
+    if (error.response?.status === 401) {
+      // Handle the 401 error silently
+      return Promise.resolve(null)
+    }
+
+    // Handle other errors normally
     toast.error(error.response?.data?.message || error?.message)
-    console.log(error)
+    console.log(error.response?.status)
+    console.log(error.response?.data?.message || error?.message)
+
     return Promise.reject(error)
   }
 )
