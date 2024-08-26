@@ -4,6 +4,7 @@ import { JwtProvider } from "@/providers/JwtProvider"
 // Lấy token và xác thực đẻ xem nó hợp lệ hay ko
 // Lấy accessToken từ cookie
 const isAuthorized = async (req, res, next) => {
+  console.log()
   const accessTokenFromCookie = req.cookies?.accessToken
   console.log("accessTokenFromCookie", accessTokenFromCookie)
 

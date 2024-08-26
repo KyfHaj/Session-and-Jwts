@@ -9,24 +9,24 @@ const ProtectedRoute = () => {
   return <Outlet />
 }
 
-// const UnauthorizedRoutes = () => {
-//   const user = localStorage.getItem("userInfo")
-//   console.log("user: ", user)
-//   if (user) return <Navigate to="/dashboard" replace={true} />
-//   return <Outlet />
-// }
+const UnauthorizedRoutes = () => {
+  const user = localStorage.getItem("userInfo")
+  console.log("user: ", user)
+  if (user) return <Navigate to="/dashboard" replace={true} />
+  return <Outlet />
+}
 
 function App() {
   return (
     <CssVarsProvider>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace={true} />} />
-        {/* <Route element={<UnauthorizedRoutes />}> */}
-        <Route path="/login" element={<Login />} />
-        {/* </Route> */}
-        {/* <Route element={<ProtectedRoute />}> */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        {/* </Route> */}
+        <Route element={<UnauthorizedRoutes />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </CssVarsProvider>
   )

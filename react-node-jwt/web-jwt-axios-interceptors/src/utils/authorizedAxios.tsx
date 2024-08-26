@@ -1,6 +1,6 @@
 import axios from "axios"
-import { Navigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import { handleLogoutAPI, refreshTokenAPI } from "../apis/index"
 
 let authorizedAxiosInstance = axios.create()
 
@@ -33,6 +33,26 @@ authorizedAxiosInstance.defaults.withCredentials = true
 
 // Mỗi respone nhận về sẽ thêm vào 1 interceptor
 // Có thể ko dùng try catch khi call api mà xử lý ở đây
+// authorizedAxiosInstance.interceptors.response.use(
+//   (response) => {
+//     console.log(response.data)
+//     toast.success("Login API success!")
+//     return response
+//   },
+//   (error) => {
+//     if (error.response?.status === 401) {
+//       // Handle the 401 error silently
+//       return Promise.resolve(null)
+//     }
+
+//     // Handle other errors normally
+//     toast.error(error.response?.data?.message || error?.message)
+//     console.log(error.response?.status)
+//     console.log(error.response?.data?.message || error?.message)
+
+//     return Promise.reject(error)
+//   }
+// )
 
 authorizedAxiosInstance.interceptors.response.use(
   (response) => {
@@ -41,16 +61,40 @@ authorizedAxiosInstance.interceptors.response.use(
     return response
   },
   (error) => {
-    if (error.response?.status === 401) {
-      // Handle the 401 error silently
-      return Promise.resolve(null)
-    }
-
     // Handle other errors normally
     toast.error(error.response?.data?.message || error?.message)
     console.log(error.response?.status)
     console.log(error.response?.data?.message || error?.message)
 
+    if (error.response?.status === 401) {
+      handleLogoutAPI().then(() => {
+        location.href = "/login"
+      })
+    }
+    const originnalRequest = error.config
+    console.log("originnalRequest: ", originnalRequest)
+
+    if (error.response?.status === 410 && !originnalRequest._retry) {
+      originnalRequest._retry = true
+      // Cho cả localStorage và cookie
+      const refreshToken = localStorage.getItem("refreshToken")
+      return refreshTokenAPI(refreshToken)
+        .then((res) => {
+          // Trường hợp dùng localStorage
+          const { accessToken } = res.data
+          localStorage.setItem("accessToken", accessToken)
+          authorizedAxiosInstance.defaults.headers.Authoriztion = `Bear ${accessToken}`
+          // Cookie thì nó được auto gán ở cookie
+          // Gọi request tới trang cần
+          return authorizedAxiosInstance(originnalRequest)
+        })
+        .catch(() => {
+          // Logout nếu có bất kỳ lỗi nào trong quá trình refresh token
+          handleLogoutAPI().then(() => {
+            location.href = "/login"
+          })
+        })
+    }
     return Promise.reject(error)
   }
 )
