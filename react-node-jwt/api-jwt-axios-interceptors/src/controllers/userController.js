@@ -31,7 +31,7 @@ const login = async (req, res) => {
     const accessToken = await JwtProvider.generateToken(
       userInfor,
       process.env.ACCESS_TOKEN_SECRET_KEY,
-      15
+      5
       // "1h"
     )
 
@@ -57,7 +57,10 @@ const login = async (req, res) => {
     })
 
     // res.status(StatusCodes.OK).json({ message: "Login API success!" })
-    res.status(StatusCodes.OK).json({ ...userInfor, accessToken, refreshToken })
+    // voi localStorage
+    // res.status(StatusCodes.OK).json({ ...userInfor, accessToken, refreshToken })
+    // voi cookie
+    res.status(StatusCodes.OK).json({ ...userInfor })
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error)
   }
@@ -108,7 +111,7 @@ const refreshToken = async (req, res) => {
     const newAccessToken = await JwtProvider.generateToken(
       userInfor,
       process.env.ACCESS_TOKEN_SECRET_KEY,
-      15
+      5
       // "1h"
     )
     console.log("newAccessToken: ", newAccessToken)
@@ -124,7 +127,7 @@ const refreshToken = async (req, res) => {
     console.log("setCookie: ")
     res.status(StatusCodes.OK).json({ ...userInfor })
   } catch (error) {
-    res.status(StatusCodes.NOT_ACCEPTABLE).json({ message: "Pls login again!" })
+    res.status(StatusCodes.UNAUTHORIZED).json({ message: "Pls login again!" })
   }
 }
 

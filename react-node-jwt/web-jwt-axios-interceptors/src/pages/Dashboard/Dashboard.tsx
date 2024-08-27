@@ -9,27 +9,44 @@ import { handleLogoutAPI } from "../../apis"
 export default function Dashboard() {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await axios.get(`${API_ROOT}/v1/dashboard/access`, {
-  //         withCredentials: true,
-  //       })
-  //       setUser(res.data.id)
-  //     } catch (error: any) {
-  //       console.log(error.response?.status)
-  //       if (error.response?.status === 401) {
-  //         navigate("/login")
-  //         return
-  //       }
-  //       if (error.response?.status === 410) {
-  //         navigate("/login")
-  //         return
-  //       }
-  //     }
-  //   }
-  //   fetchData()
-  // }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await authorizedAxiosInstance.get(
+        `${API_ROOT}/v1/dashboard/access`
+      )
+      setUser(res.data.id)
+    }
+    fetchData()
+  }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await authorizedAxiosInstance.get(
+        `${API_ROOT}/v1/dashboard/access`
+      )
+      setUser(res.data.id)
+    }
+    fetchData()
+  }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await authorizedAxiosInstance.get(
+        `${API_ROOT}/v1/dashboard/access`
+      )
+      setUser(res.data.id)
+    }
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await authorizedAxiosInstance.get(
+        `${API_ROOT}/v1/dashboard/access`
+      )
+      setUser(res.data.id)
+    }
+    fetchData()
+  }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +60,6 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     await handleLogoutAPI()
-    localStorage.removeItem("UserInfor")
     setUser(null)
     navigate("/login")
   }

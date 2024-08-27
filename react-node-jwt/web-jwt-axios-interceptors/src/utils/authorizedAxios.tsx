@@ -54,6 +54,8 @@ authorizedAxiosInstance.defaults.withCredentials = true
 //   }
 // )
 
+let refreshTokenPromise: Promise<any> | null = null
+
 authorizedAxiosInstance.interceptors.response.use(
   (response) => {
     console.log(response.data)
@@ -62,10 +64,11 @@ authorizedAxiosInstance.interceptors.response.use(
   },
   (error) => {
     // Handle other errors normally
-    toast.error(error.response?.data?.message || error?.message)
+    // toast.error(error.response?.data?.message || error?.message)
     console.log(error.response?.status)
     console.log(error.response?.data?.message || error?.message)
 
+    // Khi lỗi thông báo access token ko hợp lệ
     if (error.response?.status === 401) {
       handleLogoutAPI().then(() => {
         location.href = "/login"
@@ -74,26 +77,44 @@ authorizedAxiosInstance.interceptors.response.use(
     const originnalRequest = error.config
     console.log("originnalRequest: ", originnalRequest)
 
-    if (error.response?.status === 410 && !originnalRequest._retry) {
-      originnalRequest._retry = true
+    // Khi lỗi thông báo cần refreshToken
+    if (error.response?.status === 410 && originnalRequest) {
       // Cho cả localStorage và cookie
-      const refreshToken = localStorage.getItem("refreshToken")
-      return refreshTokenAPI(refreshToken)
-        .then((res) => {
-          // Trường hợp dùng localStorage
-          const { accessToken } = res.data
-          localStorage.setItem("accessToken", accessToken)
-          authorizedAxiosInstance.defaults.headers.Authoriztion = `Bear ${accessToken}`
-          // Cookie thì nó được auto gán ở cookie
-          // Gọi request tới trang cần
-          return authorizedAxiosInstance(originnalRequest)
-        })
-        .catch(() => {
-          // Logout nếu có bất kỳ lỗi nào trong quá trình refresh token
-          handleLogoutAPI().then(() => {
-            location.href = "/login"
+      console.log("refreshTokenPromise before: ", refreshTokenPromise)
+      if (!refreshTokenPromise) {
+        const refreshToken = localStorage.getItem("refreshToken")
+        console.log("lay refreshToken tu localStorage")
+
+        refreshTokenPromise = refreshTokenAPI(refreshToken)
+          // return refreshTokenAPI()
+          .then((res) => {
+            const { id } = res.data
+            console.log("userInfo: ", id)
+            localStorage.setItem("userInfo", id)
+
+            // Trường hợp dùng localStorage
+            // const { accessToken } = res.data
+            // localStorage.setItem("accessToken", accessToken)
+            // authorizedAxiosInstance.defaults.headers.Authoriztion = `Bear ${accessToken}`
+
+            // Cookie thì nó được auto gán ở cookie
           })
-        })
+          .catch((error) => {
+            // Logout nếu có bất kỳ lỗi nào trong quá trình refresh token
+            console.log("error: ", error)
+            handleLogoutAPI().then(() => {
+              location.href = "/login"
+            })
+          })
+          .finally(() => {
+            refreshTokenPromise = null
+          })
+      }
+      return refreshTokenPromise.then(() => {
+        console.log("refreshTokenPromise after: ", refreshTokenPromise)
+        // Gọi request tới trang cần mà vì accessToken hết hạn
+        return authorizedAxiosInstance(originnalRequest)
+      })
     }
     return Promise.reject(error)
   }
